@@ -1,0 +1,14 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Pantry app backend"
+requires-python = ">=3.14"
+dependencies = [
+    "alembic>=1.18.4",
+    "fastapi>=0.137.0",
+    "pint>=0.25.3",
+    "pytest>=9.1.0",
+    "ruff>=0.15.17",
+    "sqlmodel>=0.0.38",
+    "uvicorn>=0.49.0",
+]
