@@ -108,6 +108,7 @@ id
 name (unique)
 measurement_type ("weight" | "volume" | "count")
 default_unit (string, e.g. "g", "ml", "each")
+department ("produce" | "meat" | "dairy/eggs" | "bakery" | "frozen" | "canned" | "baking" | "snacks" | "beverages" | "other")
 ```
 
 **PantryItem** — current stock of a specific ingredient.

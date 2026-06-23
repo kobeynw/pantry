@@ -85,7 +85,7 @@ Get a minimal React app running with the basic UI shell in place.
 The foundational entity — everything else references ingredients.
 
 **Backend:**
-- Define `Ingredient` SQLModel (name, measurement_type, default_unit)
+- Define `Ingredient` SQLModel (name, measurement_type, default_unit, department)
 - Generate Alembic migration and apply it
 - CRUD endpoints: `GET /ingredients`, `POST /ingredients`, `GET /ingredients/{id}`, `PATCH /ingredients/{id}`, `DELETE /ingredients/{id}`
 
