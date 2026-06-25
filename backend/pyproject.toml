@@ -8,6 +8,7 @@ dependencies = [
     "fastapi>=0.137.0",
     "pint>=0.25.3",
     "pytest>=9.1.0",
+    "python-dotenv>=1.2.2",
     "ruff>=0.15.17",
     "sqlmodel>=0.0.38",
     "uvicorn>=0.49.0",

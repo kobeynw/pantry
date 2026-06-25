@@ -234,6 +234,7 @@ Get the app running as managed services on the LXC.
 - Frontend: `npm install`, `npm run build`
 - Create systemd services:
   - `pantry-backend.service` runs uvicorn on port 8000
+    - **Set env vars here** via `Environment=` (or `EnvironmentFile=`) in the unit's `[Service]` section — at minimum `DATABASE_URL=sqlite:////var/lib/pantry/pantry.db` (note the four slashes for an absolute path). The backend reads `DATABASE_URL` at startup; no `.env` file is loaded in prod.
   - `pantry-frontend.service` runs `serve` (or `vite preview`) on port 3000
 - Enable both services to start on boot
 - Write a `deploy.sh` script that runs on the LXC: pull → install → migrate → build → restart
