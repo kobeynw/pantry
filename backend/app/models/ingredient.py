@@ -1,6 +1,10 @@
-from sqlmodel import SQLModel, Field, Column
+from sqlmodel import SQLModel, Field, Column, Relationship
 from sqlmodel import Enum as SAEnum
 from enum import Enum
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+  from app.models.pantry_item import PantryItem
 
 class MeasurementType(str, Enum):
   WEIGHT = "weight"
@@ -41,6 +45,7 @@ class Ingredient(IngredientBase, table=True):
       nullable=False
     )
   )
+  pantry_items: list["PantryItem"] = Relationship(back_populates="ingredient")
 
 # Endpoint request model
 class IngredientCreate(IngredientBase):
