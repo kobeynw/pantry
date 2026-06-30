@@ -9,6 +9,7 @@ Web application to help users manage personal food inventory, recipes, and groce
 |---|---|---|
 | Framework | **React** | Responsive, works well for mobile |
 | Styling | **Tailwind CSS** | Mobile-friendly components |
+| Unit conversion | **convert** | Tree-shakeable TypeScript unit-conversion library; conversion runs client-side |
 
 ### Backend
 | Concern | Choice | Notes |
@@ -18,7 +19,6 @@ Web application to help users manage personal food inventory, recipes, and groce
 | ASGI server | **Uvicorn** | Standard FastAPI runtime |
 | ORM + models | **SQLModel** | Unifies Pydantic and SQLAlchemy — define each entity once for both API and DB |
 | Migrations | **Alembic** | Standard for SQLAlchemy/SQLModel schemas |
-| Unit conversion | **Pint** | De facto Python library for unit conversion |
 | Dependency management | **uv** | Modern, fast Python package manager |
 | Testing | **pytest** | |
 

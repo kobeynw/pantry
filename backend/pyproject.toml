@@ -6,7 +6,6 @@ requires-python = ">=3.14"
 dependencies = [
     "alembic>=1.18.4",
     "fastapi>=0.137.0",
-    "pint>=0.25.3",
     "pytest>=9.1.0",
     "python-dotenv>=1.2.2",
     "ruff>=0.15.17",

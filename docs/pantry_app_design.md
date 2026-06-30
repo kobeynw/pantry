@@ -65,6 +65,7 @@ A personal pantry management web application that bridges ingredient inventory t
 |---|---|---|
 | Framework | **React** | Responsive, works well in iPhone Safari |
 | Styling | Tailwind CSS or shadcn/ui | Mobile-friendly components |
+| Unit conversion | **convert** | Tree-shakeable TypeScript unit-conversion library; conversion runs client-side |
 
 ### Backend
 | Concern | Choice | Notes |
@@ -75,7 +76,6 @@ A personal pantry management web application that bridges ingredient inventory t
 | Validation/serialization | **Pydantic** | Built into FastAPI |
 | ORM + models | **SQLModel** | Unifies Pydantic and SQLAlchemy — define each entity once for both API and DB |
 | Migrations | **Alembic** | Standard for SQLAlchemy/SQLModel schemas |
-| Unit conversion | **Pint** | De facto Python library for unit conversion |
 | Dependency management | **uv** | Modern, fast Python package manager |
 | Testing | **pytest** | |
 
@@ -95,7 +95,7 @@ Consider using `openapi-typescript` to generate TypeScript interfaces on the fro
 - **Ingredients are first-class entities** — referenced by ID from pantry, recipes, shopping lists, and cooking history. Ensures consistent identification across the system.
 - **Canonical units internally** — all quantities are stored in a canonical unit per measurement type (grams for weight, milliliters for volume, whole numbers for count). This makes comparison logic a simple numeric operation.
 - **Display unit preserved per row** — alongside the canonical quantity, each row stores the unit the user originally entered, so the UI can render values in the units the user expects (e.g. "2 cups" rather than "473 ml").
-- **Conversion via library** — use a unit conversion library (e.g. `convert-units` for Node, `pint` for Python) rather than maintaining a units table. Conversion happens in the backend.
+- **Conversion via library, client-side** — use the `convert` TypeScript library rather than maintaining a units table. Conversion happens on the frontend: the client converts the user-entered value to canonical units before sending it to the API, and converts canonical values back to the display unit for rendering. The backend stores and compares canonical numbers only and performs no conversion.
 - **Conversion within type only** — weight↔weight and volume↔volume; no cross-type conversion. Each ingredient has a fixed `measurement_type` to prevent mismatched units in the first place.
 - **Shopping lists and recipes are decoupled** — recipes can inform what gets added to a shopping list, but no persistent link is stored between them.
 - **Cooking history snapshots quantities used** — so edits to recipes don't retroactively change historical records, and undo of a cook event is accurate.

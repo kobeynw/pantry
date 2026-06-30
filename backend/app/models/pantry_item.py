@@ -1,5 +1,6 @@
 from sqlmodel import SQLModel, Field, Relationship
 from typing import TYPE_CHECKING
+from app.models.ingredient import IngredientPublic
 
 if TYPE_CHECKING:
   from app.models.ingredient import Ingredient
@@ -19,3 +20,4 @@ class PantryItemCreate(PantryItemBase):
 
 class PantryItemPublic(PantryItemBase):
   id: int
+  ingredient: IngredientPublic

@@ -132,6 +132,7 @@ export interface components {
             ingredient_id: number;
             /** Id */
             id: number;
+            ingredient: components["schemas"]["IngredientPublic"];
         };
         /** ValidationError */
         ValidationError: {

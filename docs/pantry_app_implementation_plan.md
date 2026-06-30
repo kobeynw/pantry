@@ -45,7 +45,7 @@ Establish the monorepo on GitHub.
 Get a minimal FastAPI server running with SQLite + Alembic ready for migrations.
 
 - Initialize Python project with `uv init` in `/backend`
-- Install dependencies: `fastapi`, `uvicorn`, `sqlmodel`, `alembic`, `pint`, `pytest`
+- Install dependencies: `fastapi`, `uvicorn`, `sqlmodel`, `alembic`, `pytest`
 - Project structure inside `/backend`:
   ```
   app/
@@ -74,6 +74,7 @@ Get a minimal React app running with the basic UI shell in place.
 - Set up mobile-first base styles and a top-level layout shell (header, content area, mobile nav)
 - Create an API client utility (fetch wrapper pointing at the backend)
 - Install **openapi-typescript** and add a script to generate TS types from the backend's OpenAPI spec
+- Install the **convert** unit-conversion library and add a small wrapper for display↔canonical conversion
 - Set up routing (e.g. `react-router`) with placeholder routes for the main screens
 
 **User-facing criteria:** Frontend runs on `http://localhost:5173` and displays an empty app shell on desktop and mobile.
@@ -100,18 +101,18 @@ The foundational entity — everything else references ingredients.
 
 ## 6. Feature Slice 2 — Pantry
 
-Track what's currently in stock, with unit conversion handled by Pint.
+Track what's currently in stock, with unit conversion handled client-side by `convert`.
 
 **Backend:**
 - Define `PantryItem` SQLModel (ingredient_id, quantity_canonical, display_unit)
 - Migration + apply
-- CRUD endpoints for pantry items
-- Service layer: convert user-entered unit → canonical unit using **Pint** before saving
-- Validate that the entered unit matches the ingredient's `measurement_type`
+- CRUD endpoints for pantry items — accept and store the already-canonical quantity plus `display_unit`
+- Validate that `display_unit` is compatible with the ingredient's `measurement_type` (reject mismatches)
 
 **Frontend:**
 - Pantry screen showing current stock grouped by ingredient
 - Add/edit pantry item form (pick ingredient, enter quantity + unit)
+- Convert the entered unit → canonical unit with **convert** before POSTing; convert canonical → `display_unit` for rendering
 - Quantities display in the unit originally entered
 
 **User-facing criteria:** User can add items to the pantry, see current stock, edit quantities, and remove items.
@@ -126,7 +127,7 @@ Store recipes with their ingredient requirements.
 - Define `Recipe` and `RecipeIngredient` SQLModels
 - Migration + apply
 - CRUD endpoints for recipes (including their ingredient lists)
-- Same unit conversion + validation rules as pantry items
+- Same canonical-storage + `display_unit` validation rules as pantry items (conversion stays client-side)
 
 **Frontend:**
 - Recipe list screen

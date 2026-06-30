@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from sqlmodel import select
+from sqlalchemy.orm import selectinload
 from app.models.pantry_item import PantryItemCreate, PantryItem, PantryItemPublic
 from app.models.ingredient import Ingredient
 from app.db import SessionDep
@@ -21,7 +22,7 @@ def create_pantry_item(pantry_item: PantryItemCreate, session: SessionDep):
 
 @router.get("", response_model=list[PantryItemPublic])
 def get_pantry_items(session: SessionDep):
-  statement = select(PantryItem)
+  statement = select(PantryItem).options(selectinload(PantryItem.ingredient)) # pyright: ignore[reportArgumentType]
   pantry_items = session.exec(statement).all()
 
   return pantry_items
